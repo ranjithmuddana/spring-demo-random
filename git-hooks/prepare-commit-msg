@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Result will be output in place of the default commit message on running git commit
+
+JIRA_ID=`git rev-parse --abbrev-ref HEAD | cut -d '/' -f2 | cut -d '-' -f1 -f2`
+
+if [[ ${JIRA_ID} =~ ^([A-Za-z0-9]+-[0-9]+)$ ]];
+then
+    echo "${JIRA_ID} $(cat $1)" > $1
+else
+    echo "$(cat $1)" > $1
+fi
